@@ -1,0 +1,11 @@
+.flex-40 {
+  flex: 1 1 40%;
+  box-sizing: border-box;
+  max-width: 40%;
+}
+
+.align-center {
+  display: flex;
+  place-content: center center;
+  align-items: center;
+}

@@ -1,0 +1,11 @@
+.welcome {
+    text-align: center;
+    padding: 30px;
+}
+
+.show-gt-md {
+    @media screen and (min-width: 1280px) {
+        flex-direction: row;
+        gap: 20px
+    }
+}

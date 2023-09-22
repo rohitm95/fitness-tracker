@@ -1,0 +1,24 @@
+<section class="flex-row justify-center new-training">
+  <form (ngSubmit)="startTraining(f)" #f="ngForm">
+    <mat-card class="container container-xs">
+      <mat-card-title class="justify-center flex-row"
+        >Time to start a workout!</mat-card-title
+      >
+      <mat-card-content class="justify-center flex-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Choose Exercise</mat-label>
+          <mat-select ngModel name="exercise" required>
+            <mat-option
+              *ngFor="let exercise of exercises"
+              [value]="exercise.id"
+              >{{ exercise.name }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions class="flex-row justify-center">
+        <button mat-raised-button [disabled]="f.invalid">Start</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</section>

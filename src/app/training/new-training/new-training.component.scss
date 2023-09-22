@@ -1,0 +1,14 @@
+.container {
+  width: 400px;
+}
+
+.container-xs {
+  @media screen and (max-width: 599px) {
+    width: 100%;
+  }
+}
+
+.new-training {
+  padding: 30px;
+}
+
