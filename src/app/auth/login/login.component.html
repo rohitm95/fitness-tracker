@@ -1,43 +1,49 @@
 <section class="login-form">
-    <form [formGroup]="loginForm" class="flex-col items-center">
-      <mat-form-field>
-        <input
-          type="email"
-          matInput
-          placeholder="Your email"
-          formControlName="email"
-          required
-        />
-        <mat-error *ngIf="controls['email'].invalid && controls['email'].touched">Email required or invalid.</mat-error>
-      </mat-form-field>
-      <mat-form-field>
-        <input
-          matInput
-          placeholder="Your password"
-          formControlName="password"
-          [type]="hide ? 'password' : 'text'"
-          required
-        />
-        <button
-            mat-icon-button
-            matSuffix
-            (click)="hide = !hide"
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
-          >
-            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-          </button>
-          <mat-error *ngIf="controls['password'].invalid && controls['password'].touched">Password required or invalid.</mat-error>
-    </mat-form-field>
-      <button
-        type="submit"
-        mat-raised-button
-        color="primary"
-        [disabled]="loginForm.invalid"
-        (click)="login(loginForm)"
+  <form [formGroup]="loginForm" class="flex-col items-center">
+    <mat-form-field>
+      <input
+        type="email"
+        matInput
+        placeholder="Your email"
+        formControlName="email"
+        required
+      />
+      <mat-error *ngIf="controls['email'].invalid && controls['email'].touched"
+        >Email required or invalid.</mat-error
       >
-        Submit
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="Your password"
+        formControlName="password"
+        [type]="hide ? 'password' : 'text'"
+        required
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
-    </form>
-  </section>
-  
+      <mat-error
+        *ngIf="controls['password'].invalid && controls['password'].touched"
+        >Password required or invalid.</mat-error
+      >
+    </mat-form-field>
+    <button
+      *ngIf="!isLoading"
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="loginForm.invalid"
+      (click)="login(loginForm)"
+    >
+      Submit
+    </button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </form>
+</section>

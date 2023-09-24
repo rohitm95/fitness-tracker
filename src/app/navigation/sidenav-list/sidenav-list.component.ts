@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/auth/auth.service';
 @Component({
   selector: 'app-sidenav-list',
   templateUrl: './sidenav-list.component.html',
-  styleUrls: ['./sidenav-list.component.scss']
+  styleUrls: ['./sidenav-list.component.scss'],
 })
 export class SidenavListComponent {
   @Output() closeSidenav = new EventEmitter<void>();
@@ -15,9 +15,11 @@ export class SidenavListComponent {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.authSubscription = this.authService.authChange.subscribe(authStatus => {
-      this.isAuth = authStatus;
-    })
+    this.authSubscription = this.authService.authChange.subscribe(
+      (authStatus) => {
+        this.isAuth = authStatus;
+      }
+    );
   }
 
   onCloseSidenav() {
@@ -30,7 +32,8 @@ export class SidenavListComponent {
   }
 
   ngOnDestroy(): void {
+    if (this.authSubscription) {
       this.authSubscription.unsubscribe();
+    }
   }
-
 }

@@ -1,9 +1,5 @@
 <section class="signup-form">
-  <form
-    #f="ngForm"
-    (ngSubmit)="onSubmit(f)"
-    class="flex-col items-center"
-  >
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)" class="flex-col items-center">
     <mat-form-field>
       <input
         type="email"
@@ -65,8 +61,10 @@
       mat-raised-button
       color="primary"
       [disabled]="f.invalid"
+      *ngIf="!isLoading"
     >
       Submit
     </button>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
   </form>
 </section>
