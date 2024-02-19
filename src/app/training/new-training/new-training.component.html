@@ -1,27 +1,22 @@
 <section class="flex-row justify-center new-training">
   <form (ngSubmit)="startTraining(f)" #f="ngForm">
     <mat-card class="container container-xs">
-      <mat-card-title class="justify-center flex-row"
-        >Time to start a workout!</mat-card-title
-      >
+      <mat-card-title class="justify-center flex-row">Time to start a workout!</mat-card-title>
       <mat-card-content class="justify-center flex-row">
-        <mat-form-field appearance="fill" *ngIf="!isLoading && exercises">
+        <mat-form-field appearance="fill" *ngIf="!(isLoading$ | async) && (exercises$ | async)">
           <mat-label>Choose Exercise</mat-label>
           <mat-select ngModel name="exercise" required>
-            <mat-option
-              *ngFor="let exercise of exercises"
-              [value]="exercise.id"
-              >{{ exercise.name }}</mat-option
-            >
+            <mat-option *ngFor="let exercise of (exercises$ | async)" [value]="exercise.id">{{ exercise.name
+              }}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-spinner *ngIf="isLoading"></mat-spinner>
+        <mat-spinner *ngIf="isLoading$ |async"></mat-spinner>
       </mat-card-content>
-      <mat-card-actions class="flex-row justify-center" *ngIf="!isLoading">
-        <button *ngIf="exercises" mat-raised-button [disabled]="f.invalid">
+      <mat-card-actions class="flex-row justify-center" *ngIf="!(isLoading$ | async)">
+        <button *ngIf="(exercises$ | async)" mat-raised-button [disabled]="f.invalid">
           Start
         </button>
-        <button *ngIf="!exercises" mat-raised-button (click)="fetchExercises()">
+        <button *ngIf="!(exercises$ | async)" mat-raised-button (click)="fetchExercises()">
           Fetch Again
         </button>
       </mat-card-actions>
