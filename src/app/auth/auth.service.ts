@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AuthData } from './auth-data.model';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Auth, authState, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { TrainingService } from '../training/training.service';
 import { UIService } from '../shared/ui.service';
 
@@ -12,18 +12,18 @@ import { UIService } from '../shared/ui.service';
 export class AuthService {
   authChange = new Subject<boolean>();
   private isAuthenticated = false;
+  private auth: Auth = inject(Auth);
+  authState$ = authState(this.auth);
 
   constructor(
     private router: Router,
-    private afAuth: AngularFireAuth,
     private trainingService: TrainingService,
     private uiService: UIService
-  ) {}
+  ) { }
 
   registerUser(authData: AuthData) {
     this.uiService.loadingStateChanged.next(true);
-    this.afAuth
-      .createUserWithEmailAndPassword(authData.email, authData.password)
+    createUserWithEmailAndPassword(this.auth, authData.email, authData.password)
       .then((result) => {
         this.uiService.loadingStateChanged.next(false);
       })
@@ -35,8 +35,7 @@ export class AuthService {
 
   login(authData: AuthData) {
     this.uiService.loadingStateChanged.next(true);
-    this.afAuth
-      .signInWithEmailAndPassword(authData.email, authData.password)
+    signInWithEmailAndPassword(this.auth, authData.email, authData.password)
       .then((result) => {
         this.uiService.loadingStateChanged.next(false);
       })
@@ -55,7 +54,7 @@ export class AuthService {
   }
 
   logout() {
-    this.afAuth.signOut();
+    signOut(this.auth);
   }
 
   isAuth() {
@@ -63,7 +62,7 @@ export class AuthService {
   }
 
   initAuthListener() {
-    this.afAuth.authState.subscribe((user) => {
+    this.authState$.subscribe((user) => {
       if (user) {
         this.isAuthenticated = true;
         this.authChange.next(true);

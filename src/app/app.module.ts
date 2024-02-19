@@ -7,10 +7,10 @@ import { MaterialModule } from './material.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
-import { environment } from '../environments/environment';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthModule } from './auth/auth.module';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -24,10 +24,11 @@ import { AuthModule } from './auth/auth.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AuthModule,
+    provideFirebaseApp(() => initializeApp({ "projectId": "ng-fitness-tracker-3d596", "appId": "1:431799972321:web:d46c973aaa98d64533e2a0", "storageBucket": "ng-fitness-tracker-3d596.appspot.com", "apiKey": "AIzaSyAD9GYxS1Z54WOdgodbzIV_mAGz6jBEfqM", "authDomain": "ng-fitness-tracker-3d596.firebaseapp.com", "messagingSenderId": "431799972321", "measurementId": "G-572YHGBN7E" })),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
   ],
-  providers: [AngularFirestore],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
