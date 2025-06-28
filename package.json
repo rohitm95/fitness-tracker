@@ -16,7 +16,7 @@
     "@angular/compiler": "^17.2.1",
     "@angular/core": "^17.2.1",
     "@angular/fire": "^19.0.0",
-    "@angular/forms": "^17.2.1",
+    "@angular/forms": "^17.3.12",
     "@angular/material": "^17.2.0",
     "@angular/material-moment-adapter": "^17.2.0",
     "@angular/platform-browser": "^17.2.1",
